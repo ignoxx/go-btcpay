@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/jon4hz/go-btcpay/examples/config"
+	"github.com/ignoxx/go-btcpay/examples/config"
 )
 
 // change url to valid
