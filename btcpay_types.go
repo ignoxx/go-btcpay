@@ -2,6 +2,42 @@ package btcpay
 
 import "net/http"
 
+type EventType string
+
+const (
+	EventInvoiceCreated         EventType = "InvoiceCreated"
+	EventInvoiceExpired         EventType = "InvoiceExpired"
+	EventInvoiceInvalid         EventType = "InvoiceInvalid"
+	EventInvoicePaymentSettled  EventType = "InvoicePaymentSettled"
+	EventInvoiceProcessing      EventType = "InvoiceProcessing"
+	EventInvoiceReceivedPayment EventType = "InvoiceReceivedPayment"
+	EventInvoiceSettled         EventType = "InvoiceSettled"
+)
+
+type InvoiceEvent struct {
+	DeliveryID         string          `json:"deliveryId"`
+	InvoiceID          InvoiceID       `json:"invoiceId"`
+	IsRedelivery       bool            `json:"isRedelivery"`
+	OriginalDeliveryID string          `json:"originalDeliveryId"`
+	StoreID            StoreID         `json:"storeId"`
+	Timestamp          int64           `json:"timestamp"`
+	Type               EventType       `json:"type"`
+	WebhookID          string          `json:"webhookId"`
+	InvoiceMetadata    InvoiceMetadata `json:"metadata"`
+
+	// InvoiceInvalid and InvoiceSettled only
+	ManuallyMarked bool `json:"manuallyMarked"`
+
+	// InvoiceReceivedPayment only
+	AfterExpiration bool `json:"afterExpiration"` // whether this payment has been sent after the invoice expired
+
+	// InvoiceExpired only
+	PartiallyPaid bool `json:"partiallyPaid"`
+
+	// InvoiceProcessing only
+	OverPaid bool `json:"overPaid"`
+}
+
 type APIKey string
 
 type Client struct {
@@ -9,6 +45,7 @@ type Client struct {
 	APIKey         APIKey
 	Username       string
 	Password       string
+	WebhookSecret  string
 	Http           *http.Client
 	Store          *Store
 	Invoice        *Invoice

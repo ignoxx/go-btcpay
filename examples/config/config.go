@@ -9,10 +9,11 @@ import (
 
 type Config struct {
 	BTCPay struct {
-		URL      string `yaml:"url"`
-		Username string `yaml:"username,omitempty"`
-		Password string `yaml:"password,omitempty"`
-		APIKey   string `yaml:"apiKey,omitempty"`
+		URL           string `yaml:"url"`
+		Username      string `yaml:"username,omitempty"`
+		Password      string `yaml:"password,omitempty"`
+		APIKey        string `yaml:"apiKey,omitempty"`
+		WebhookSecret string `yaml:"webhookSecret,omitempty"`
 	} `yaml:"BTCPayServer"`
 }
 

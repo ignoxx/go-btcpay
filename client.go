@@ -11,11 +11,12 @@ import (
 	"net/http"
 )
 
-func NewClient(url string, apiKey APIKey) *Client {
+func NewClient(url string, apiKey APIKey, webhookSecret string) *Client {
 	client := &Client{
-		URL:    url,
-		APIKey: apiKey,
-		Http:   &http.Client{},
+		URL:           url,
+		APIKey:        apiKey,
+		WebhookSecret: webhookSecret,
+		Http:          &http.Client{},
 	}
 	client.Store = &Store{Client: client}
 	client.Invoice = &Invoice{Client: client, Store: client.Store}
@@ -26,12 +27,13 @@ func NewClient(url string, apiKey APIKey) *Client {
 	return client
 }
 
-func NewBasicClient(url, username, password string) *Client {
+func NewBasicClient(url, username, password, webhookSecret string) *Client {
 	client := &Client{
-		URL:      url,
-		Username: username,
-		Password: password,
-		Http:     &http.Client{},
+		URL:           url,
+		Username:      username,
+		Password:      password,
+		WebhookSecret: webhookSecret,
+		Http:          &http.Client{},
 	}
 	client.Store = &Store{Client: client}
 	client.Invoice = &Invoice{Client: client, Store: client.Store}
