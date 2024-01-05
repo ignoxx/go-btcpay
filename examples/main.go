@@ -19,7 +19,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	client := btcpay.NewBasicClient(config.BTCPay.URL, config.BTCPay.Username, config.BTCPay.Password)
+	client := btcpay.NewBasicClient(config.BTCPay.URL, config.BTCPay.Username, config.BTCPay.Password, config.BTCPay.WebhookSecret)
 
 	/* cont, cancel := context.WithTimeout(ctx, time.Second*5)
 	defer cancel()
