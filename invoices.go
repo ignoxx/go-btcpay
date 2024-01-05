@@ -3,11 +3,19 @@ package btcpay
 import (
 	"context"
 	"fmt"
+	"strings"
 )
 
 // Get an array of all Invoices from a single store.
-func (c *Client) GetInvoices(ctx context.Context, storeID *StoreID) ([]*InvoiceResponse, int, error) {
+func (c *Client) GetInvoices(ctx context.Context, storeID *StoreID, orderIds ...string) ([]*InvoiceResponse, int, error) {
 	endpoint := fmt.Sprintf("%s/api/v1/stores/%s/invoices", c.URL, *storeID)
+
+	var orderIdString string
+	if len(orderIds) > 0 {
+		orderIdString = strings.Join(orderIds, "&orderId=")
+		endpoint = endpoint + "?" + orderIdString[1:]
+	}
+
 	var dataRes []*InvoiceResponse
 	statusCode, err := c.doRequest(ctx, endpoint, "GET", &dataRes, nil)
 	if err != nil {
