@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/jon4hz/go-btcpay"
-	"github.com/jon4hz/go-btcpay/examples/config"
+	"github.com/ignoxx/go-btcpay"
+	"github.com/ignoxx/go-btcpay/examples/config"
 )
 
 var ctx = context.Background()
