@@ -76,7 +76,7 @@ func (c *Client) doRequest(ctx context.Context, endpoint, method string, expRes 
 	if len(opts) > 0 && len(opts[0]) > 0 {
 		setQueryParam(&endpoint, opts)
 	}
-	fmt.Println(endpoint)
+
 	req, err := http.NewRequestWithContext(ctx, method, endpoint, bytes.NewBuffer(dataReq))
 	if err != nil {
 		return 0, err
